@@ -8,10 +8,10 @@
 
 ## Instalation/Usage
 
-First, install the required Node dependencies in the project folder:
+First, install the required Node dependencies in the project folder:  
 `npm i ws socket.io express`
 
-Then, run the main script:
+Then, run the main script:  
 `node app.js`
 
 ## Using with Stream Deck
@@ -28,6 +28,11 @@ Then, run the main script:
 
 ![tp-action.png](tutorial/tp-action.png)
 
+## Adding on OBS
+
+Simply add the `http://127.0.0.1:3000/` address as OBS Browser source.  
+That's all.
+
 ## Mapping the character
 
 1. You'll need the `X` and `Y` coordinates, plus the `width` and `height` of each frame, in order to map it correctly;
@@ -43,26 +48,33 @@ Then, run the main script:
 ## Todo
 
 - ⬜ Support for small movement when microphone is detected.
+- ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ✅ "first", "last" and "random" actions.
 - ✅ "flip" and "unflip" actions.
 
 ## FAQ
 
-Q: _Why do you use WebSockets on Stream Deck?_
+Q: _Why do you use WebSockets on Stream Deck?_  
 A: It's faster.
 
-Q: _Why do you use GET on Touch Portal?_
+Q: _Why do you use GET on Touch Portal?_  
 A: It's more compatible and easy to use. Plus, no plugin needed.
 
-Q: _Are you going to improve this project?_
+Q: _Are you going to improve this project?_  
 A: I'll probably add minor modifications. But I won't do much. As it is part of my (bigger) [caramel.gg](http://caramel.gg) project.
 
-Q: _Your demo has a white background on my OBS!_
+Q: _Your demo has a white background on my OBS!_  
 A: Yes. I'm lazy and didn't bother finding a demo sheet without background.
 
-Q: _Your demo has more frames than the three you mapped!_
+Q: _Your demo has more frames than the three you mapped!_  
 A: I. Am. LAZY!
+
+Q: _I already use the 3000 port for something else. Can I change the script?_  
+A: Yes.
+
+Q: _Can I change the script in general?_  
+A: Yes. But I'd appreciate if you shared your customization with everyone else.
 
 ## Credits
 
