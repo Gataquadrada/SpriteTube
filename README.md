@@ -1,5 +1,8 @@
 # Low cost sprite based V-Tubing
 
+A lightweight script, that uses sprites and allows you to have a VTube character you can control with Stream Deck and Touch Portal buttons.  
+Working on a video demo.
+
 ## Requirements
 
 - Basic [NodeJS](http://nodejs.org) knowledge.
@@ -50,6 +53,7 @@ That's all.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
+- ⬜ Support for idle set of frames.
 - ✅ "first", "last" and "random" actions.
 - ✅ "flip" and "unflip" actions.
 
