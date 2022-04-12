@@ -1,0 +1,88 @@
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"
+></script>
+<script src="./socket.io/socket.io.js"></script>
+<script>
+  var socket = io()
+  var frames = {}
+
+  socket.on("frame", (frame) => {
+    console.log(">>> frame", frame)
+
+    if ("flip" == frame) {
+      jQuery("#character").addClass("flipped")
+      return null
+    } else if ("unflip" == frame) {
+      jQuery("#character").removeClass("flipped")
+      return null
+    } else if ("first" == frame) {
+      frame = frames[0]
+      jQuery("#character").show().css({
+        "background-position": frame.p,
+        width: frame.w,
+        height: frame.h,
+      })
+    } else if ("last" == frame) {
+      frame = frames[frames.length - 1]
+      jQuery("#character").show().css({
+        "background-position": frame.p,
+        width: frame.w,
+        height: frame.h,
+      })
+    } else if ("random" == frame) {
+      frame = frames[Math.floor(Math.random() * frames.length)]
+      jQuery("#character").show().css({
+        "background-position": frame.p,
+        width: frame.w,
+        height: frame.h,
+      })
+    } else if (frames[frame]) {
+      frame = frames[frame]
+      jQuery("#character").show().css({
+        "background-position": frame.p,
+        width: frame.w,
+        height: frame.h,
+      })
+    }
+  })
+
+  jQuery(($) => {
+    $.getJSON("assets/frames.json", function (data) {
+      frames = data.frames
+
+      jQuery("#character").css({
+        "background-position": frames[0].p,
+        width: frames[0].w,
+        height: frames[0].h,
+      })
+    })
+  })
+</script>
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  #character {
+    background-image: url("assets/character.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgba(0, 0, 0, 0);
+    width: 0px;
+    height: 0px;
+  }
+  #character.flipped {
+    transform: translateX(-50%) scaleX(-1);
+  }
+</style>
+<div id="character"></div>
