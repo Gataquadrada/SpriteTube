@@ -42,10 +42,10 @@ Then, run the main script:
 
 ## Todo
 
-⬜ Support for small movement when microphone is detected.
-⬜ Support for second set of frames for mouth movement when microphone is detected.
-✅ "first", "last" and "random" actions.
-✅ "flip" and "unflip" actions.
+- ⬜ Support for small movement when microphone is detected.
+- ⬜ Support for second set of frames for mouth movement when microphone is detected.
+- ✅ "first", "last" and "random" actions.
+- ✅ "flip" and "unflip" actions.
 
 ## FAQ
 
