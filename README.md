@@ -31,16 +31,6 @@ Then, run the main script:
 
 ![tp-action.png](tutorial/tp-action.png)
 
-## Adding on OBS
-
-Simply add the `http://127.0.0.1:3000/` address as OBS Browser source.  
-That's all.
-
-## Mapping the character
-
-1. You'll need the `X` and `Y` coordinates, plus the `width` and `height` of each frame, in order to map it correctly;
-2. Then, proceed to fill the `frames` array inside the `assets/frames.json` file.
-
 ## Other commands
 
 - Use `flip` and `unflip` as commands to (un)flip the frame.
@@ -48,12 +38,49 @@ That's all.
 - Use `last` to jump to the last frame recorded in the `frames.json` file.
 - Use `random` to jump to a random frame recorded in the `frames.json` file.
 
+## Making it visible on OBS
+
+Simply add the `http://127.0.0.1:3000/` address as OBS Browser source.  
+That's all.
+
+## Character editor.
+
+By opening the `http://127.0.0.1:3000/map` URL (after starting the server), you'll find a character editor.
+
+> I am still working on a way to streamline the process of changing your spritesheet image (with an "upload" button).
+> But, for now, you need to replace the `assets/character.png` file by hand.
+
+![map-1.png](tutorial/map-1.png)
+
+#### These are the currently available actions:
+
+- Drag and drop the sheet (by dragging from outside the preview box).
+- Resize the preview box.
+- Snapshot a frame.
+- Delete a frame (by hovering it in the timeline).
+- Reorganize frames (drag and drop).
+- Click sprites in the timeline to quickly navigate and preview.
+- Toggle the timeline.
+- Save (replaces your current `frames.json` file, but makes a backup once a day inside the `assets/backups` folder).
+
+## Mapping the character by hand
+
+1. You'll need the `X` and `Y` coordinates, plus the `width` and `height` of each frame, in order to map it correctly (use CSS background-position as reference);
+2. Then, proceed to fill the `frames` array inside the `assets/frames.json` file.
+
+## Replacing a spritesheet
+
+Just replace the `assets/character.png` file.
+
 ## Todo
 
+- ⬜ Support uploading new spritesheet to the editor.
+- ⬜ Make replacing a frame in the editor less annoying.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ✅ Character editor.
 - ✅ "first", "last" and "random" actions.
 - ✅ "flip" and "unflip" actions.
 
@@ -80,7 +107,19 @@ A: Yes.
 Q: _Can I change the script in general?_  
 A: Yes. But I'd appreciate if you shared your customization with everyone else.
 
+Q: _I see a lot of unused code. Are you adding new stuff?_  
+A: Yes. I may send commits with placeholder code I am working on.
+
+Q: _Can I message you on if I have issues or suggestions?_  
+A: Sure. You can open an issue here, or message me on [Discord](https://discord.gg/eYfSNQT) or [Twitter](https://twitter.com/Mazeakin).
+
 ## Credits
 
 - Demo using [Female Character Sprite for Visual Novel](https://sutemo.itch.io/female-character).
 - Tell me if you use this script. So I can feature you.
+
+## Known bugs
+
+- One to two pixels as margin error are randomly added/removed when saving from the editor.
+- The sprite frame actually working flawless (despite the item above) in the animation screen is actually a bug.
+- That means you need to fidget with positions, till you get the perfect frame.
