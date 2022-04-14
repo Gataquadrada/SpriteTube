@@ -4,7 +4,7 @@
     <title>Player - Maze's SpriteTube</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="jquery-3.6.0.min.js"></script>
+    <script src="assets/jquery-3.6.0.min.js"></script>
     <script src="./socket.io/socket.io.js"></script>
     <script>
       var socket = io()
@@ -17,6 +17,9 @@
         } else if ("unflip" == frame) {
           jQuery("#character").removeClass("flipped")
           return null
+        } else if ("hide" == frame) {
+          jQuery("#character").hide()
+          return null
         } else if ("first" == frame) {
           frame = frames[0]
         } else if ("last" == frame) {
@@ -25,6 +28,9 @@
           frame = frames[Math.floor(Math.random() * frames.length)]
         } else if (frames[frame]) {
           frame = frames[frame]
+        } else {
+          jQuery("#character").hide()
+          return null
         }
 
         jQuery("#character")

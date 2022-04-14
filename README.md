@@ -45,6 +45,8 @@ That's all.
 - Use `first` to jump to the first frame recorded in the `frames.json` file.
 - Use `last` to jump to the last frame recorded in the `frames.json` file.
 - Use `random` to jump to a random frame recorded in the `frames.json` file.
+- Use `hide` to hide the avatar.
+- Any invalid command or innexistent frame number will remove the sprite from screen.
 
 ## Character editor.
 
