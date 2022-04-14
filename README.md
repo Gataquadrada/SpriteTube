@@ -56,14 +56,17 @@ By opening the `http://127.0.0.1:3000/map` URL (after starting the server) or by
 
 #### These are the currently available actions:
 
-- Drag and drop the sheet (by dragging from outside the preview box).
+- Upload a new spritesheet.
+- Move the spritesheet (by dragging from outside the preview box).
 - Resize the preview box.
 - Snapshot a frame.
-- Delete a frame (by hovering it in the timeline).
+- Edit a frame (hover frames for buttons).
+- Delete a frame (hover frames for buttons).
 - Reorganize frames (drag and drop).
 - Click sprites in the timeline to quickly navigate and preview.
 - Toggle the timeline.
 - Save (replaces your current `frames.json` file, but makes a backup once a day inside the `backups` folder).
+- Preview.
 
 ## Mapping the character by hand
 
