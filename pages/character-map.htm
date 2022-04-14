@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Mapping character - Maze's SpriteTube</title>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mapping character - Maze's STubing</title>
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
+    <script src="jquery-3.6.0.min.js"></script>
     <script
       src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
       integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY="
@@ -23,37 +20,87 @@
     />
     <script>
       jQuery(($) => {
-        $.getJSON(
-          "assets/frames.json",
-          function (data) {
-            const box = $("#box")
-            const moved = $(".img.moved")
+        var spritesheet = null
 
-            frames = data.frames
+        $(document).on("change", ".action_sheet_upload", function () {
+          if ("undefined" != typeof FileReader) {
+            const fReader = new FileReader()
+            const fInput = $(this)
 
-            $.each(frames, function (i, frame) {
-              const frameW = frame.w.replace("px", "") * 1
-              const frameH = frame.h.replace("px", "") * 1
-              const framePX = frame.p.split(" ")[0].replace("px", "") * -1
-              const framePY = frame.p.split(" ")[1].replace("px", "") * -1
+            fReader.onload = function (e) {
+              spritesheet = e.target.result
+              $(".img.moved > img, .img.masked > img").prop("src", spritesheet)
 
-              box.width(frameW)
-              box.height(frameH)
+              $("#timeline").empty()
 
-              moved.css({
-                left: $("#box").position().left - framePX,
-                top: $("#box").position().top - framePY,
+              $("#box").css({
+                height: "200px",
+                width: "200px",
               })
 
-              frameAdd(framePX, framePY)
-            })
+              $(".img.moved").css({
+                left: 0,
+                top: 0,
+              })
 
-            init()
-          },
-          function (err) {
-            init()
+              moveImgMask(null, {
+                position: {
+                  left: $(".img.moved").position().left,
+                  top: $(".img.moved").position().top,
+                },
+              })
+
+              $("body").removeClass("loading").addClass("editing")
+            }
+
+            fReader.readAsDataURL(fInput[0].files[0])
+          } else {
+            alert("Your browser doesn't support offline file manipulation...")
           }
-        )
+        })
+
+        $.ajax({
+          url: "assets/character.png",
+          success: function () {
+            $.getJSON(
+              "assets/frames.json",
+              function (data) {
+                const box = $("#box")
+                const moved = $(".img.moved")
+
+                frames = data.frames
+
+                $.each(frames, function (i, frame) {
+                  const frameW = frame.w.replace("px", "") * 1
+                  const frameH = frame.h.replace("px", "") * 1
+                  const framePX = frame.p.split(" ")[0].replace("px", "") * -1
+                  const framePY = frame.p.split(" ")[1].replace("px", "") * -1
+
+                  box.width(frameW)
+                  box.height(frameH)
+
+                  moved.css({
+                    left: $("#box").position().left - framePX,
+                    top: $("#box").position().top - framePY,
+                  })
+
+                  frameAdd(framePX, framePY)
+                })
+
+                init()
+              },
+              function (err) {
+                init()
+              }
+            )
+          },
+          error: function (a, b, c) {
+            if (404 == a.status) {
+              init()
+              $("body").removeClass("editing").addClass("loading")
+            }
+          },
+        })
 
         function resizeImgMask(e, ui) {
           $(".img.masked").css({
@@ -178,8 +225,18 @@
 
           $("#timeline").sortable()
 
+          $("#preview")
+            .draggable({ containment: "#edit", scroll: false })
+            .resizable({
+              handles: "all",
+            })
+
           $(document).on("click", "#action_timeline_toggle", function () {
             $("#timeline").toggleClass("open")
+          })
+
+          $(document).on("click", "#action_preview", function () {
+            $("#preview").toggleClass("open")
           })
 
           $(document).on("click", "#action_frame_add", function () {
@@ -242,6 +299,7 @@
               url: "/map",
               data: {
                 frames: timeline,
+                spritesheet: spritesheet,
               },
               dataType: "JSON",
               beforeSend: function () {
@@ -276,24 +334,36 @@
         box-sizing: border-box;
         user-select: none;
       }
-      #load,
-      #edit {
+      #load {
+        align-items: center;
         background: #18191b;
         display: none;
+        inset: 0;
+        justify-content: center;
+        position: fixed;
+        z-index: 999;
+      }
+      #edit {
+        background: #18191b;
+        display: block;
         inset: 0;
         position: fixed;
         z-index: 1;
       }
-      #load {
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-      }
       body.loading #load {
         display: flex;
       }
-      body.editing #edit {
-        display: block;
+      #load button {
+        position: relative;
+      }
+      #load button > input[type="file"] {
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
       }
       #load > button {
         background: #176e6d;
@@ -312,9 +382,9 @@
         z-index: 4;
       }
       .img {
-        left: 50%;
+        left: 0;
         position: fixed;
-        top: 50%;
+        top: 0;
         z-index: 3;
       }
       #box {
@@ -396,6 +466,7 @@
         font-size: 0.9rem;
         text-align: left;
         padding: 0.4rem 0.5rem;
+        position: relative;
       }
       #controls > button:hover {
         background: #053938;
@@ -416,14 +487,74 @@
         float: left;
         margin-right: 0.15rem;
       }
+      #controls > button > input[type="file"] {
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+      #preview {
+        background: rgb(0, 255, 0);
+        border-radius: 3px;
+        display: none;
+        height: 200px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 200px;
+        z-index: 8;
+      }
+      #preview.open {
+        display: block;
+      }
+      #preview > #preview_handle {
+        align-items: center;
+        background: #666666;
+        border-radius: 3px 3px 0 0;
+        color: #fff;
+        cursor: move;
+        display: flex;
+        height: 20px;
+        left: 0;
+        padding: 0 0 0 5px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+      #preview > #preview_handle > i {
+        font-size: 15px;
+      }
+      #preview > iframe {
+        position: absolute;
+        height: calc(100% - 20px);
+        left: 0;
+        top: 20px;
+        width: 100%;
+      }
     </style>
   </head>
   <body class="editing">
     <div id="load">
-      <button type="button">Load image</button>
+      <button type="button">
+        Load image
+        <input type="file" class="action_sheet_upload" accept=".png" />
+      </button>
     </div>
     <div id="edit">
+      <div class="img moved"><img src="assets/character.png" /></div>
+      <div id="overlay"></div>
+      <div id="box">
+        <div class="img masked"><img src="assets/character.png" /></div>
+      </div>
+      <div id="timeline" class="open"></div>
       <div id="controls">
+        <button id="action_preview" type="button">
+          <i class="material-icons">account_box</i>
+          <span>Preview</span>
+        </button>
         <button id="action_frame_add" type="button">
           <i class="material-icons">camera_alt</i>
           <span>Add frame</span>
@@ -431,16 +562,18 @@
         <button id="action_timeline_toggle" type="button">
           <i class="material-icons">burst_mode</i> <span>Timeline</span>
         </button>
+        <button type="button">
+          <i class="material-icons">cloud_upload</i> <span>Upload</span>
+          <input type="file" class="action_sheet_upload" accept=".png" />
+        </button>
         <button id="action_timeline_save" type="button">
           <i class="material-icons">save</i> <span>Save</span>
         </button>
       </div>
-      <div id="timeline" class="open"></div>
-      <div id="box">
-        <div class="img masked"><img src="assets/character.png" /></div>
+      <div id="preview">
+        <div id="preview_handle"><i class="material-icons">menu</i></div>
+        <iframe src="http://127.0.0.1:3000/" frameborder="0"></iframe>
       </div>
-      <div class="img moved"><img src="assets/character.png" /></div>
-      <div id="overlay"></div>
     </div>
   </body>
 </html>

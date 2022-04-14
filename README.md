@@ -1,7 +1,8 @@
 # Low cost sprite based V-Tubing
 
-A lightweight script, that uses sprites and allows you to have a VTube character you can control with Stream Deck and Touch Portal buttons.  
-Working on a video demo.
+A lightweight Sprite based VTube environment, that you can control with Stream Deck and Touch Portal buttons.
+
+If you like de content, consider [buying me a ☕](https://www.buymeacoffee.com/mazeakin).
 
 ## Requirements
 
@@ -11,11 +12,18 @@ Working on a video demo.
 
 ## Instalation/Usage
 
+#### If you don't want to fiddle with any of the manual parts, here is a [Windows version](https://github.com/Mazeakin/Maze-Static-VTube/releases) you can just download and use.
+
 First, install the required Node dependencies in the project folder:  
 `npm i ws socket.io express`
 
 Then, run the main script:  
 `node app.js`
+
+## Making it visible on OBS
+
+Simply add the `http://127.0.0.1:3000/` address as OBS Browser source.  
+That's all.
 
 ## Using with Stream Deck
 
@@ -38,17 +46,9 @@ Then, run the main script:
 - Use `last` to jump to the last frame recorded in the `frames.json` file.
 - Use `random` to jump to a random frame recorded in the `frames.json` file.
 
-## Making it visible on OBS
-
-Simply add the `http://127.0.0.1:3000/` address as OBS Browser source.  
-That's all.
-
 ## Character editor.
 
-By opening the `http://127.0.0.1:3000/map` URL (after starting the server), you'll find a character editor.
-
-> I am still working on a way to streamline the process of changing your spritesheet image (with an "upload" button).
-> But, for now, you need to replace the `assets/character.png` file by hand.
+By opening the `http://127.0.0.1:3000/map` URL (after starting the server) or by opening the [APP](https://github.com/Mazeakin/Maze-Static-VTube/releases), you'll find a character editor.
 
 ![map-1.png](tutorial/map-1.png)
 
@@ -61,25 +61,29 @@ By opening the `http://127.0.0.1:3000/map` URL (after starting the server), you'
 - Reorganize frames (drag and drop).
 - Click sprites in the timeline to quickly navigate and preview.
 - Toggle the timeline.
-- Save (replaces your current `frames.json` file, but makes a backup once a day inside the `assets/backups` folder).
+- Save (replaces your current `frames.json` file, but makes a backup once a day inside the `backups` folder).
 
 ## Mapping the character by hand
 
-1. You'll need the `X` and `Y` coordinates, plus the `width` and `height` of each frame, in order to map it correctly (use CSS background-position as reference);
-2. Then, proceed to fill the `frames` array inside the `assets/frames.json` file.
+_First, you are brave._
 
-## Replacing a spritesheet
+- You'll need the `X` and `Y` coordinates, plus the `width` and `height` of each frame, in order to map it correctly (use CSS background-position as reference, top left is `X-0` and `Y-0`);
+- Then, proceed to fill the `frames` array inside the `assets/frames.json` file.
+
+## Replacing a spritesheet by hand
 
 Just replace the `assets/character.png` file.
 
 ## Todo
 
-- ⬜ Support uploading new spritesheet to the editor.
+- 🟨 Code cleanup.
 - ⬜ Make replacing a frame in the editor less annoying.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ✅ Support for uploading new spritesheet to the editor.
+- ✅ Character preview inside the editor.
 - ✅ Character editor.
 - ✅ "first", "last" and "random" actions.
 - ✅ "flip" and "unflip" actions.
@@ -110,7 +114,7 @@ A: Yes. But I'd appreciate if you shared your customization with everyone else.
 Q: _I see a lot of unused code. Are you adding new stuff?_  
 A: Yes. I may send commits with placeholder code I am working on.
 
-Q: _Can I message you on if I have issues or suggestions?_  
+Q: _Can I message you if I have issues or suggestions?_  
 A: Sure. You can open an issue here, or message me on [Discord](https://discord.gg/eYfSNQT) or [Twitter](https://twitter.com/Mazeakin).
 
 ## Credits
@@ -120,6 +124,5 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 ## Known bugs
 
-- One to two pixels as margin error are randomly added/removed when saving from the editor.
+- One to two pixels as margin error are randomly added/removed when saving from the editor. That means you need to fiddle with positions, till you get the perfect frame.
 - The sprite frame actually working flawless (despite the item above) in the animation screen is actually a bug.
-- That means you need to fidget with positions, till you get the perfect frame.

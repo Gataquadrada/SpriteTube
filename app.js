@@ -6,14 +6,17 @@ const { Server } = require("socket.io")
 const io = new Server(server)
 const WebSocket = require("ws")
 const fs = require("fs")
+const bodyParser = require("body-parser")
 
+app.use(bodyParser.json({ limit: "50mb" }))
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use("/assets", express.static("assets"))
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/pages/index.htm")
+  res.sendFile(__dirname + "/pages/player.htm")
 })
 
 app.get("/character", (req, res) => {
@@ -27,8 +30,8 @@ app.get("/map", (req, res) => {
 
 app.post("/map", (req, res) => {
   try {
-    if (!fs.existsSync("assets/backups")) {
-      fs.mkdirSync("assets/backups")
+    if (!fs.existsSync("backups")) {
+      fs.mkdirSync("backups")
     }
 
     var d = new Date()
@@ -36,10 +39,16 @@ app.post("/map", (req, res) => {
       "0" + d.getDate()
     ).slice(-2)}`
 
-    if (!fs.existsSync(`assets/backups/frames-${date}.json`)) {
+    if (!fs.existsSync(`backups/${date}-frames.json`)) {
       fs.copyFile(
         "assets/frames.json",
-        `assets/backups/frames-${date}.json`,
+        `backups/${date}-frames.json`,
+        (err) => {}
+      )
+
+      fs.copyFile(
+        "assets/character.png",
+        `backups/${date}-character.png`,
         (err) => {}
       )
     }
@@ -47,13 +56,32 @@ app.post("/map", (req, res) => {
     console.error(err)
   }
 
-  fs.writeFile("assets/frames.json", JSON.stringify(req.body), (err) => {
-    if (err) {
-      console.error(err)
-      res.send("err")
-      return
+  if (req.body.spritesheet) {
+    const spritesheet = req.body.spritesheet.replace(
+      /^data:image\/png;base64,/,
+      ""
+    )
+
+    fs.writeFile("assets/character.png", spritesheet, "base64", function (err) {
+      if (err) {
+        console.error(err)
+        res.send("err")
+        return
+      }
+    })
+  }
+
+  fs.writeFile(
+    "assets/frames.json",
+    JSON.stringify({ frames: req.body.frames }),
+    (err) => {
+      if (err) {
+        console.error(err)
+        res.send("err")
+        return
+      }
     }
-  })
+  )
 
   res.json({ ok: true })
 })
