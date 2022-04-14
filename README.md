@@ -27,15 +27,15 @@ That's all.
 
 ## Using with Stream Deck
 
-1. Point to the (running) webservice;
-2. From 0 (zero) to F-1 (total frames minus one), specify the frame you want as "message".
+1. Point to the (running) webservice (usually, `ws://127.0.0.1:3000/`);
+2. From `0` (zero) to `F-1` (total frames minus one), specify the frame you want as "message".
 
 ![sd-action.png](tutorial/sd-action.png)
 
 ## Using with Touch Portal
 
 1. Point to the (running) webpage (usually, `http://127.0.0.1:3000/character`) with the `?frame=` query string;
-2. From 0 (zero) to F-1 (total frames minus one), specify the frame you want as `?frame=` query string.
+2. From `0` (zero) to `F-1` (total frames minus one), specify the frame you want as `?frame=` query string.
 
 ![tp-action.png](tutorial/tp-action.png)
 
@@ -120,6 +120,7 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 ## Credits
 
 - Demo using [Female Character Sprite for Visual Novel](https://sutemo.itch.io/female-character).
+- [SpriteTubeApp](https://github.com/Mazeakin/SpriteTubeApp) source code.
 - Tell me if you use this script. So I can feature you.
 
 ## Known bugs
