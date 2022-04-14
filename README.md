@@ -2,7 +2,7 @@
 
 A lightweight Sprite based VTube environment, that you can control with Stream Deck and Touch Portal buttons.
 
-If you like de content, consider [buying me a ☕](https://www.buymeacoffee.com/mazeakin).
+If you like the content, consider [buying me a ☕](https://www.buymeacoffee.com/mazeakin).
 
 ## Requirements
 
@@ -121,7 +121,8 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 - Demo using [Female Character Sprite for Visual Novel](https://sutemo.itch.io/female-character).
 - [SpriteTubeApp](https://github.com/Mazeakin/SpriteTubeApp) source code.
-- Tell me if you use this script. So I can feature you.
+- [Buying me a ☕](https://www.buymeacoffee.com/mazeakin) is a nice way to show appreciation.
+- You should credit me when using this script and app. A footnote is enough.
 
 ## Known bugs
 
