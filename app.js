@@ -25,7 +25,7 @@ wss.on("connection", (ws, req) => {
 })
 
 try {
-  const port = fs.readFileSync("./config/port.txt", "utf8")
+  const port = fs.readFileSync("config/port.txt", "utf8")
   _PORT = port
 } catch (err) {
   console.error(err)
