@@ -78,13 +78,16 @@ Just replace the `assets/character.png` file.
 
 ## Todo
 
-- 🟨 Code cleanup.
-- ⬜ Remember last frame used on boot.
-- ⬜ Make replacing a frame in the editor less annoying.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ✅ Code cleanup.
+- ✅ Make replacing a frame in the editor less annoying.
+- ✅ Remember last frame used on boot (local to each player).
+- ✅ Snapshot a frame to use as icon.
+- ✅ Reload player when saving the timeline.
+- ✅ Show frame number in the editor.
 - ✅ Support for uploading new spritesheet to the editor.
 - ✅ Character preview inside the editor.
 - ✅ Character editor.
