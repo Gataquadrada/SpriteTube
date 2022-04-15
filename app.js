@@ -32,6 +32,8 @@ try {
 }
 
 io.on("connection", (socket) => {
+  io.to(socket.id).emit("server-port", _PORT)
+
   socket.on("player-reload", function () {
     io.emit("player-reload")
   })
@@ -58,6 +60,10 @@ app.get("/map", (req, res) => {
   res.sendFile(__dirname + "/pages/map.htm")
 })
 
+/* 
+change __dirname + "/
+for "./ 
+*/
 app.post("/map", (req, res) => {
   try {
     if (!fs.existsSync(__dirname + "/backups")) {
@@ -99,7 +105,6 @@ app.post("/map", (req, res) => {
       function (err) {
         if (err) {
           console.error(err)
-          res.send("err")
           return
         }
       }
@@ -112,7 +117,6 @@ app.post("/map", (req, res) => {
     (err) => {
       if (err) {
         console.error(err)
-        res.send("err")
         return
       }
     }
