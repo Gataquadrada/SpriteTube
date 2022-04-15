@@ -81,10 +81,12 @@ Just replace the `assets/character.png` file.
 
 ## Todo
 
+- ⬜ Make "random" syncronize with all players.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ✅ Frame info button.
 - ✅ Code cleanup.
 - ✅ Make replacing a frame in the editor less annoying.
 - ✅ Remember last frame used on boot (local to each player).
