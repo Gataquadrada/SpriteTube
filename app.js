@@ -62,7 +62,9 @@ app.get("/map", (req, res) => {
 
 /* 
 change __dirname + "/
-for "./ 
+for "./
+change __dirname + `/
+for `./
 */
 app.post("/map", (req, res) => {
   try {
