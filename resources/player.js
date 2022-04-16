@@ -4,45 +4,51 @@ jQuery(($) => {
 
   function setFrame(frameNumber) {
     try {
-      if ("flip" == frameNumber) {
-        $("#character").show().addClass("flipped")
+      $.each(frameNumber.split(","), function (i, action) {
+        if ("flip" == action) {
+          $("#character").show().addClass("flipped")
+          $(window).trigger("resize")
+          return null
+        } else if ("unflip" == action) {
+          $("#character").show().removeClass("flipped")
+          $(window).trigger("resize")
+          return null
+        } else if ("toggleflip" == action) {
+          $("#character").show().toggleClass("flipped")
+          $(window).trigger("resize")
+          return null
+        } else if ("hide" == action) {
+          $("#character").hide()
+          return null
+        } else if ("first" == action) {
+          action = 0
+        } else if ("last" == action) {
+          action = frames.length - 1
+        } else if ("random" == action) {
+          action = Math.floor(Math.random() * frames.length)
+        } else if (!frames[action]) {
+          $("#character").hide()
+          return null
+        }
+
+        var frame = frames[action]
+
+        localStorage.setItem("maze-frame", action)
+
+        $("#character")
+          .css({
+            "background-position": frame.p,
+            width: frame.w,
+            height: frame.h,
+          })
+          .data({
+            "frame-width": frame.w,
+            "frame-height": frame.h,
+          })
+          .show()
+
         $(window).trigger("resize")
-        return null
-      } else if ("unflip" == frameNumber) {
-        $("#character").show().removeClass("flipped")
-        $(window).trigger("resize")
-        return null
-      } else if ("hide" == frameNumber) {
-        $("#character").hide()
-        return null
-      } else if ("first" == frameNumber) {
-        frameNumber = 0
-      } else if ("last" == frameNumber) {
-        frameNumber = frames.length - 1
-      } else if ("random" == frameNumber) {
-        frameNumber = Math.floor(Math.random() * frames.length)
-      } else if (!frames[frameNumber]) {
-        $("#character").hide()
-        return null
-      }
-
-      var frame = frames[frameNumber]
-
-      localStorage.setItem("maze-frame", frameNumber)
-
-      $("#character")
-        .css({
-          "background-position": frame.p,
-          width: frame.w,
-          height: frame.h,
-        })
-        .data({
-          "frame-width": frame.w,
-          "frame-height": frame.h,
-        })
-        .show()
-
-      $(window).trigger("resize")
+      })
     } catch (err) {
       console.log(err)
     }

@@ -77,7 +77,7 @@ jQuery(($) => {
         </button>
       </div>`)
 
-      timeline.append(item)
+      timeline.append(item).scrollTop(timeline[0].scrollHeight + 500)
     }
 
     const itemImg = item.find("img")
@@ -150,13 +150,29 @@ jQuery(($) => {
 
   $(document).on("keydown", function (e) {
     if (38 == e.keyCode) {
-      spritesheetMain.css("top", spritesheetMain.position().top - 1)
+      spritesheetMain.css(
+        "top",
+        spritesheetMain.position().top -
+          (e.shiftKey ? (e.ctrlKey ? 20 : 10) : 1)
+      )
     } else if (40 == e.keyCode) {
-      spritesheetMain.css("top", spritesheetMain.position().top + 1)
+      spritesheetMain.css(
+        "top",
+        spritesheetMain.position().top +
+          (e.shiftKey ? (e.ctrlKey ? 20 : 10) : 1)
+      )
     } else if (37 == e.keyCode) {
-      spritesheetMain.css("left", spritesheetMain.position().left - 1)
+      spritesheetMain.css(
+        "left",
+        spritesheetMain.position().left -
+          (e.shiftKey ? (e.ctrlKey ? 20 : 10) : 1)
+      )
     } else if (39 == e.keyCode) {
-      spritesheetMain.css("left", spritesheetMain.position().left + 1)
+      spritesheetMain.css(
+        "left",
+        spritesheetMain.position().left +
+          (e.shiftKey ? (e.ctrlKey ? 20 : 10) : 1)
+      )
     }
 
     spritesheetMain.trigger("maze-moved")
@@ -212,7 +228,9 @@ jQuery(($) => {
 
     const link = document.createElement("a")
     link.download = "icon.png"
-    link.href = canvas.toDataURL()
+    link.href = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream")
     link.click()
   })
 
@@ -367,11 +385,14 @@ jQuery(($) => {
   setInterval(function () {
     if (!timeline.is(":visible")) return null
 
+    var count = 0
     timeline.children(".item").each(function () {
       const item = $(this)
       const itemImg = item.find("img")
+      item.find(".number").text(count)
       const ratio = item.outerWidth() / item.data("box-width")
       itemImg.height(item.data("box-height") * ratio)
+      count++
     })
   }, 500)
 })

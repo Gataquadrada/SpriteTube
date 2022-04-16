@@ -30,6 +30,8 @@ That's all.
 1. Point to the (running) webservice (usually, `ws://127.0.0.1:3000/`);
 2. From `0` (zero) to `F-1` (total frames minus one), specify the frame you want as "message".
 
+> Accepts comma separated commands.
+
 ![sd-action.png](tutorial/sd-action.png)
 
 ## Using with Touch Portal
@@ -37,11 +39,13 @@ That's all.
 1. Point to the (running) webpage (usually, `http://127.0.0.1:3000/character`) with the `?frame=` query string;
 2. From `0` (zero) to `F-1` (total frames minus one), specify the frame you want as `?frame=` query string.
 
+> Accepts comma separated commands.
+
 ![tp-action.png](tutorial/tp-action.png)
 
 ## Other commands
 
-- Use `flip` and `unflip` as commands to (un)flip the frame.
+- Use `flip`, `unflip` and `toggleflip` as commands to (un)flip the frame.
 - Use `first` to jump to the first frame recorded in the `frames.json` file.
 - Use `last` to jump to the last frame recorded in the `frames.json` file.
 - Use `random` to jump to a random frame recorded in the `frames.json` file.
@@ -86,6 +90,9 @@ Just replace the `assets/character.png` file.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ✅ (APP) Backup download and upload.
+- ✅ Accept comma separated commands.
+- ✅ Hold SHIFT to move the shpritesheet in bigger intervals. Add CTRL for even mode distance.
 - ✅ Frame info button.
 - ✅ Code cleanup.
 - ✅ Make replacing a frame in the editor less annoying.
