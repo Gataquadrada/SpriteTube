@@ -1,4 +1,4 @@
-const _VERSION = "0.3.0"
+const _VERSION = "0.4.0"
 var _PORT = 69100
 var _FRAMES = []
 var _FRAME_PROPS = {
