@@ -2,7 +2,6 @@ jQuery(($) => {
   var spritesheetFile = null
   var frameEditing = null
 
-  const socket = io()
   const spritesheetMain = $("#spritesheet_main")
   const spritesheetBoxed = $("#spritesheet_boxed")
   const resizeBox = $("#resize_box")
@@ -260,8 +259,8 @@ jQuery(($) => {
     const item = $(this).parent(".item")
     const boxW = parseInt(item.data("box-width"))
     const boxH = parseInt(item.data("box-height"))
-    const boxX = item.data("box-x")
-    const boxY = item.data("box-y")
+    const boxX = parseInt(item.data("box-x"))
+    const boxY = parseInt(item.data("box-y"))
     const movedX = parseInt(item.data("moved-x"))
     const movedY = parseInt(item.data("moved-y"))
     alert(
@@ -326,7 +325,7 @@ jQuery(($) => {
 
     $.ajax({
       type: "POST",
-      url: "/map",
+      url: "/editor.save",
       data: {
         frames: jsonTimeline,
         spritesheet: spritesheetFile || null,
@@ -342,7 +341,6 @@ jQuery(($) => {
         button.prop("disabled", false)
 
         if (data.ok) {
-          socket.emit("player-reload")
           alert("Saved!")
         } else {
           alert("Error on save!")

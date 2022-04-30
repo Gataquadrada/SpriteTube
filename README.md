@@ -2,48 +2,60 @@
 
 A lightweight Sprite based VTube environment, that you can control with Stream Deck and Touch Portal buttons.
 
-If you like the content, consider [buying me a ☕](https://www.buymeacoffee.com/mazeakin).
+If you like the content, consider [buying me a ☕][url_coffee].
 
 ## Requirements
 
 - Basic [NodeJS](http://nodejs.org) knowledge.
 - Basic HTML, JS, CSS, jQuery knowledge.
-- [Stream Deck Web Requests plugin](https://apps.elgato.com/plugins/gg.datagram.web-requests) and/or [Touch Portal](https://www.touch-portal.com/)'s HTTP GET action.
+- [Stream Deck SpriteTube Plugin]() or [Stream Deck Web Requests Plugin][url_streamdeck_plugin] or (Pre 0.3.0)[Touch Portal](https://www.touch-portal.com/)'s HTTP GET action.
 
 ## Instalation/Usage
 
 #### If you don't want to fiddle with any of the manual parts, here is a [Windows version](https://github.com/Mazeakin/Maze-Static-VTube/releases) you can just download and use.
 
 First, install the required Node dependencies in the project folder:  
-`npm i ws socket.io express`
+`npm i ws express express-es6-template-engine canvas`
 
 Then, run the main script:  
 `node app.js`
 
 ## Making it visible on OBS
 
-Simply add the `http://127.0.0.1:3000/` address as OBS Browser source.  
+Simply add the [http://127.0.0.1:3000/](http://127.0.0.1:3000/) address as OBS Browser source.  
 That's all.
 
-## Using with Stream Deck
+## Using with Stream Deck ([SpriteTube Plugin][url_streamdeck_plugin])
 
-1. Point to the (running) webservice (usually, `ws://127.0.0.1:3000/`);
-2. From `0` (zero) to `F-1` (total frames minus one), specify the frame you want as "message".
+Just pick an action and follow the instructions.  
+If you didn't change the default port, you should have little to no work with each action.
 
-> Accepts comma separated commands.
+![sd-spritetube.png](tutorial/sd-spritetube.png)
+
+## Using with Stream Deck (Web Requests Plugin)
+
+Set `URL` to `ws://localhost:3000/`  
+Send a `JSON` formatted `Message` like the following.
+
+```json
+{ "action": "setFrame", "payload": "random" }
+```
+
+```json
+{
+  "action": "setFrameModifier",
+  "payload": { "mod": "flip", "action": "flip|unflip|toggle" }
+}
+```
 
 ![sd-action.png](tutorial/sd-action.png)
 
 ## Using with Touch Portal
 
-1. Point to the (running) webpage (usually, `http://127.0.0.1:3000/character`) with the `?frame=` query string;
-2. From `0` (zero) to `F-1` (total frames minus one), specify the frame you want as `?frame=` query string.
+> Working on a TouchPortal plugin.  
+> It seems Touch Portal doesn't have any Websockets plugin. So you are kinda out of luck.
 
-> Accepts comma separated commands.
-
-![tp-action.png](tutorial/tp-action.png)
-
-## Other commands
+## Available commands
 
 - Use `flip`, `unflip` and `toggleflip` as commands to (un)flip the frame.
 - Use `first` to jump to the first frame recorded in the `frames.json` file.
@@ -54,9 +66,9 @@ That's all.
 
 ## Character editor.
 
-By opening the `http://127.0.0.1:3000/map` URL (after starting the server) or by opening the [APP](https://github.com/Mazeakin/Maze-Static-VTube/releases), you'll find a character editor.
+By opening the [http://127.0.0.1:3000/editor.html](http://127.0.0.1:3000/editor.html) URL (after starting the server) or by opening the [APP](https://github.com/Mazeakin/Maze-Static-VTube/releases), you'll find a character editor.
 
-![map-1.png](tutorial/map-1.png)
+![editor-1.png](tutorial/editor-1.png)
 
 #### These are the currently available actions:
 
@@ -83,39 +95,13 @@ _First, you are brave._
 
 Just replace the `assets/character.png` file.
 
-## Todo
-
-- ⬜ Make "random" syncronize with all players.
-- ⬜ Support for small movement when microphone is detected.
-- ⬜ Support for loop through predefined frames when microphone is detected.
-- ⬜ Support for second set of frames for mouth movement when microphone is detected.
-- ⬜ Support for idle set of frames.
-- ✅ (APP) Backup download and upload.
-- ✅ Accept comma separated commands.
-- ✅ Hold SHIFT to move the shpritesheet in bigger intervals. Add CTRL for even mode distance.
-- ✅ Frame info button.
-- ✅ Code cleanup.
-- ✅ Make replacing a frame in the editor less annoying.
-- ✅ Remember last frame used on boot (local to each player).
-- ✅ Snapshot a frame to use as icon.
-- ✅ Reload player when saving the timeline.
-- ✅ Show frame number in the editor.
-- ✅ Support for uploading new spritesheet to the editor.
-- ✅ Character preview inside the editor.
-- ✅ Character editor.
-- ✅ "first", "last" and "random" actions.
-- ✅ "flip" and "unflip" actions.
-
 ## FAQ
 
-Q: _Why do you use WebSockets on Stream Deck?_  
-A: It's faster.
-
-Q: _Why do you use GET on Touch Portal?_  
-A: It's more compatible and easy to use. Plus, no plugin needed.
+Q: _Why do you use WebSockets?_  
+A: It's faster and simpler.
 
 Q: _Are you going to improve this project?_  
-A: I'll probably add minor modifications. But I won't do much. As it is part of my (bigger) [caramel.gg](http://caramel.gg) project.
+A: ~I'll probably add minor modifications. But I won't do much. As it is part of my (bigger) [caramel.gg](http://caramel.gg) project.~ Yes.
 
 Q: _Your demo has a white background on my OBS!_  
 A: Yes. I'm lazy and didn't bother finding a demo sheet without background.
@@ -127,7 +113,7 @@ Q: _I already use the 3000 port for something else. Can I change the script?_
 A: Yes.
 
 Q: _Can I change the script in general?_  
-A: Yes. But I'd appreciate if you shared your customization with everyone else.
+A: Yes. But I'd appreciate if you shared your customization with everyone else. And give credits.
 
 Q: _I see a lot of unused code. Are you adding new stuff?_  
 A: Yes. I may send commits with placeholder code I am working on.
@@ -139,10 +125,48 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 - Demo using [Female Character Sprite for Visual Novel](https://sutemo.itch.io/female-character).
 - [SpriteTubeApp](https://github.com/Mazeakin/SpriteTubeApp) source code.
-- [Buying me a ☕](https://www.buymeacoffee.com/mazeakin) is a nice way to show appreciation.
+- [Buying me a ☕][url_coffee] is a nice way to show appreciation.
 - You should credit me when using this script and app. A footnote is enough.
 
 ## Known bugs
 
 - One to two pixels as margin error are randomly added/removed when saving from the editor. That means you need to fiddle with positions, till you get the perfect frame.
-- The sprite frame actually working flawless (despite the item above) in the animation screen is actually a bug.
+- The sprite frame actually working flawless (despite the item above) in the player is actually a bug.
+
+## Todo
+
+- ⬜ Support for small movement when microphone is detected.
+- ⬜ Support for loop through predefined frames when microphone is detected.
+- ⬜ Support for second set of frames for mouth movement when microphone is detected.
+- ⬜ Support for idle set of frames.
+- ✅ (0.3.0) Remove load from the player (make server send a base64 encoded image ready to use).
+- ✅ (0.3.0) Sincronize all players in general.
+- ✅ (0.3.0) Make "random" syncronize with all players.
+- ✅ (APP) Backup download and upload.
+- ✅ (Pre 0.3.0) Hold SHIFT to move the shpritesheet in bigger intervals. Add CTRL for even mode distance.
+- ✅ (Pre 0.3.0) Frame info button.
+- ✅ (Pre 0.3.0) Code cleanup.
+- ✅ (Pre 0.3.0) Make replacing a frame in the editor less annoying.
+- ✅ (Pre 0.3.0) Remember last frame used on boot (local to each player).
+- ✅ (Pre 0.3.0) Snapshot a frame to use as icon.
+- ✅ (Pre 0.3.0) Reload player when saving the timeline.
+- ✅ (Pre 0.3.0) Show frame number in the editor.
+- ✅ (Pre 0.3.0) Support for uploading new spritesheet to the editor.
+- ✅ (Pre 0.3.0) Character preview inside the editor.
+- ✅ (Pre 0.3.0) Character editor.
+- ✅ (Pre 0.3.0) "first", "last" and "random" actions.
+- ✅ (Pre 0.3.0) "flip" and "unflip" actions.
+
+## Changelog
+
+- (0.3.0) Introduced the [Stream Deck Plugin][url_streamdeck_plugin].
+- (0.3.0) Removed HTTP GET and Socket.io integrgations.
+- (0.3.0) Added `/player.html` endpoint.
+- (0.3.0) Renamed "map" to "editor".
+- (0.3.0) Renamed `/map.html` endpoint to `/editor.html`.
+- (0.3.0) Removed comma separated commands.
+- (0.3.0) Removed `/port` endpoint.
+- (0.3.0) Several performance improvements.
+
+[url_coffee]: https://www.buymeacoffee.com/mazeakin
+[url_streamdeck_plugin]: https://apps.elgato.com/plugins/com.mazeakin.spritetube
