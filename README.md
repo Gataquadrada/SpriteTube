@@ -8,11 +8,18 @@ If you like the content, consider [buying me a ☕][url_coffee].
 
 - Basic [NodeJS](http://nodejs.org) knowledge.
 - Basic HTML, JS, CSS, jQuery knowledge.
-- [Stream Deck SpriteTube Plugin][url_streamdeck_plugin] or [Stream Deck Web Requests Plugin][url_web_requests_plugin] or (Pre 0.3.0)[Touch Portal](https://www.touch-portal.com/)'s HTTP GET action.
+- [Stream Deck SpriteTube Plugin][url_streamdeck_plugin] or [Stream Deck Web Requests Plugin][url_web_requests_plugin].
 
 ## Instalation/Usage
 
-#### If you don't want to fiddle with any of the manual parts, here is a [Windows version](https://github.com/Mazeakin/Maze-Static-VTube/releases) you can just download and use.
+### Windows version
+
+> The Windows version, usually, is a couple days behind the command line version.  
+> As I have little experience with translating a NodeJS app to an executable.
+
+If you don't want to fiddle with any of the manual parts, here is a [Windows version](https://github.com/Mazeakin/Maze-Static-VTube/releases) you can just download and use.
+
+### Command line (NodeJS)
 
 First, install the required Node dependencies in the project folder:  
 `npm i ws express express-es6-template-engine canvas`
@@ -30,7 +37,9 @@ That's all.
 Just pick an action and follow the instructions.  
 If you didn't change the default port, you should have little to no work with each action.
 
-![sd-spritetube.png](tutorial/sd-spritetube.png)
+![sd-spritetube-1.png](tutorial/sd-spritetube-1.png)
+
+![sd-spritetube-2.png](tutorial/sd-spritetube-2.png)
 
 ## Using with Stream Deck (Web Requests Plugin)
 
