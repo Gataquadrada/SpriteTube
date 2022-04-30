@@ -8,7 +8,7 @@ If you like the content, consider [buying me a ☕][url_coffee].
 
 - Basic [NodeJS](http://nodejs.org) knowledge.
 - Basic HTML, JS, CSS, jQuery knowledge.
-- [Stream Deck SpriteTube Plugin]() or [Stream Deck Web Requests Plugin][url_streamdeck_plugin] or (Pre 0.3.0)[Touch Portal](https://www.touch-portal.com/)'s HTTP GET action.
+- [Stream Deck SpriteTube Plugin][url_streamdeck_plugin] or [Stream Deck Web Requests Plugin][url_web_requests_plugin] or (Pre 0.3.0)[Touch Portal](https://www.touch-portal.com/)'s HTTP GET action.
 
 ## Instalation/Usage
 
@@ -171,3 +171,4 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 [url_coffee]: https://www.buymeacoffee.com/mazeakin
 [url_streamdeck_plugin]: https://github.com/Mazeakin/SpriteTube/releases/tag/stream-deck
+[url_web_requests_plugin]: https://apps.elgato.com/plugins/gg.datagram.web-requests
