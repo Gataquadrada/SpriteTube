@@ -35,7 +35,7 @@ const WebSocket = require("ws")
 const fs = require("fs")
 const bodyParser = require("body-parser")
 const path = require("path")
-const { createCanvas, loadImage } = require("canvas")
+const { Canvas, loadImage } = require("skia-canvas")
 
 const wss = new WebSocket.Server({
   server,
@@ -124,40 +124,35 @@ const renderFrame = async (frammeNumber, temp = false) => {
     _FRAME_OLD_PROPS = Object.assign({}, _FRAME_PROPS)
   }
 
-  const canvas = createCanvas(1, 1)
+  const canvas = new Canvas(parseInt(frame.w), parseInt(frame.h))
   const context = canvas.getContext("2d")
 
-  return loadImage(path.join(__dirname, "character", "character.png")).then(
-    (image) => {
-      canvas.width = parseInt(frame.w)
-      canvas.height = parseInt(frame.h)
-
-      if (!temp) {
-        if (_FRAME_PROPS.isFlipped) {
-          context.scale(-1, 1)
-        }
-      }
-
-      context.drawImage(
-        image,
-        parseInt(frame.p.split(" ")[0]) -
-          (!temp && _FRAME_PROPS.isFlipped ? canvas.width : 0),
-        parseInt(frame.p.split(" ")[1])
-      )
-
-      const buffer = canvas.toBuffer()
-
-      if (temp) {
-        return `data:image/png;base64,${buffer.toString("base64")}`
-      }
-
-      _FRAME_PROPS.frameImg = `data:image/png;base64,${buffer.toString(
-        "base64"
-      )}`
-
-      return _FRAME_PROPS.frameImg
-    }
+  let image = await loadImage(
+    path.join(__dirname, "character", "character.png")
   )
+
+  if (!temp) {
+    if (_FRAME_PROPS.isFlipped) {
+      context.scale(-1, 1)
+    }
+  }
+
+  context.drawImage(
+    image,
+    parseInt(frame.p.split(" ")[0]) -
+      (!temp && _FRAME_PROPS.isFlipped ? canvas.width : 0),
+    parseInt(frame.p.split(" ")[1])
+  )
+
+  const buffer = await canvas.toDataURL("png")
+
+  if (temp) {
+    return buffer
+  }
+
+  _FRAME_PROPS.frameImg = buffer
+
+  return _FRAME_PROPS.frameImg
 }
 
 try {
@@ -234,6 +229,8 @@ wss.on("connection", (ws, req) => {
         : data?.payload
         ? data.payload
         : 0
+
+    console.log(`${new Date()} Message: ${data.action}`)
 
     switch (data.action) {
       case "setFrame":
