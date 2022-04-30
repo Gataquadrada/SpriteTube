@@ -58,10 +58,11 @@ Send a `JSON` formatted `Message` like the following.
 ## Available commands
 
 - Use `flip`, `unflip` and `toggleflip` as commands to (un)flip the frame.
-- Use `first` to jump to the first frame recorded in the `frames.json` file.
-- Use `last` to jump to the last frame recorded in the `frames.json` file.
-- Use `random` to jump to a random frame recorded in the `frames.json` file.
+- Use `first` to jump to the first frame.
+- Use `last` to jump to the last frame.
+- Use `random` to jump to a random frame.
 - Use `hide` to hide the avatar.
+- Use `show` to show the avatar.
 - Any invalid command or innexistent frame number will remove the sprite from screen.
 
 ## Character editor.
@@ -169,4 +170,4 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 - (0.3.0) Several performance improvements.
 
 [url_coffee]: https://www.buymeacoffee.com/mazeakin
-[url_streamdeck_plugin]: https://apps.elgato.com/plugins/com.mazeakin.spritetube
+[url_streamdeck_plugin]: https://github.com/Mazeakin/SpriteTube/releases/tag/stream-deck
