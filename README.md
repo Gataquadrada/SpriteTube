@@ -22,7 +22,7 @@ If you don't want to fiddle with any of the manual parts, here is a [Windows ver
 ### Command line (NodeJS)
 
 First, install the required Node dependencies in the project folder:  
-`npm i ws express express-es6-template-engine canvas`
+`npm i ws express express-es6-template-engine skia-canvas`
 
 Then, run the main script:  
 `node app.js`
