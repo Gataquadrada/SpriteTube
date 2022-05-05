@@ -1,6 +1,6 @@
 # Low cost sprite based V-Tubing
 
-A lightweight Sprite based VTube environment, that you can control with Stream Deck and Touch Portal buttons.
+A lightweight Sprite based VTube environment, that you can control with Stream Deck or Websocket requests.
 
 If you like the content, consider [buying me a ☕][url_coffee].
 
@@ -149,6 +149,7 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ⬜ Party mode (be able to see someone else's avatar and frames).
 - ✅ (0.3.0) Remove load from the player (make server send a base64 encoded image ready to use).
 - ✅ (0.3.0) Sincronize all players in general.
 - ✅ (0.3.0) Make "random" syncronize with all players.
