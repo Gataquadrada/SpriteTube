@@ -145,11 +145,12 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 ## Todo
 
+- ⏹️ (1.1) Party mode (be able to see someone else's avatar and frames).
+- ⏹️ (1.1) Zoom in and out with mouse scroll wheel.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
-- ⬜ Party mode (be able to see someone else's avatar and frames).
 - ✅ (0.3.0) Remove load from the player (make server send a base64 encoded image ready to use).
 - ✅ (0.3.0) Sincronize all players in general.
 - ✅ (0.3.0) Make "random" syncronize with all players.
@@ -170,6 +171,17 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 ## Changelog
 
+- (1.0) New, more powerful, editor.
+- (1.0) `CTRL+Z` will try to place frames you deleted back into the list.
+- (1.0) Backup and restore are now part of the main editor (instead of the Windows app only).
+- (1.0) You can name frames from the editor.
+- (1.0) You can take snapshots of what you currently see inside the crop box.
+- (1.0) Crop box and icon crop box now have a minimum usable size.
+- (1.0) You can now center the spritesheet, in case it gets moved away from the screen.
+- (1.0) Added an outline to mark the limits of the spritesheet image.
+- (1.0) Info tab now hosts the preview.
+- (1.0) Info tab now shows keyboard shortcuts.
+- (1.0) Drag and drop to reorder frames is untouched.
 - (0.3.0) Introduced the [Stream Deck Plugin][url_streamdeck_plugin].
 - (0.3.0) Removed HTTP GET and Socket.io integrgations.
 - (0.3.0) Added `/player.html` endpoint.
