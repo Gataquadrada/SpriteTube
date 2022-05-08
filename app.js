@@ -10,7 +10,7 @@ var _FRAME_PROPS = {
 }
 var _FRAME_OLD_PROPS = {}
 
-const _PARTYSERVER = "ws://caramel.gg:3001"
+const _PARTYSERVER = "ws://caramel.gg:8880"
 var _PARTYWSS = null
 var _PARTY = {
   partyName: "",
@@ -47,6 +47,7 @@ const fs = require("fs")
 const bodyParser = require("body-parser")
 const path = require("path")
 const { Canvas, loadImage } = require("skia-canvas")
+const { captureRejections } = require("events")
 
 /* 
  ! INIT
@@ -252,6 +253,19 @@ const renderFrame = async (frammeNumber, temp = false) => {
 }
 
 wss.on("connection", (ws, req) => {
+  if (!_PARTYWSS || 1 !== _PARTYWSS.readyState) {
+    ws.send(
+      JSON.stringify({
+        event: `partyError`,
+        payload: `<i class="fa-solid fa-fan fa-spin fa-spin-reverse"></i> Connecting to party server...`,
+      })
+    )
+  } else {
+    partySend("partyGetMembers", {
+      partyName: _PARTY.partyName,
+    })
+  }
+
   ws.on("message", (data) => {
     data = data.toString()
     data = data.startsWith("{")
@@ -339,6 +353,10 @@ wss.on("connection", (ws, req) => {
       /* 
       ! PARTY STUFF
       */
+      case "partyReboot":
+        partyJoin()
+        break
+
       case "partyGetStatus":
         if (_PARTYWSS) {
           ws.send(
@@ -355,6 +373,12 @@ wss.on("connection", (ws, req) => {
             })
           )
         }
+        break
+
+      case "partyJoined":
+        wss.broadcast({
+          event: "partyJoined",
+        })
         break
 
       case "partyGetMembers":
@@ -384,7 +408,9 @@ wss.on("connection", (ws, req) => {
 wss.broadcast = function broadcast(msg = {}) {
   msg = JSON.stringify(msg)
   wss.clients.forEach(function each(client) {
-    client.send(msg)
+    try {
+      client.send(msg)
+    } catch (e) {}
   })
 }
 
@@ -396,11 +422,13 @@ function partyJoin() {
   _PARTYWSS = new WebSocket(_PARTYSERVER)
 
   _PARTYWSS.on("open", function () {
-    console.log(`${new Date()} PARTY CONNECTED`)
-
     try {
-      clearInterval(partyJoinTimer)
+      clearTimeout(partyJoinTimer)
     } catch (e) {}
+
+    wss.broadcast({
+      event: `partyConnected`,
+    })
 
     partySend("partyJoin", {
       memberEmail: _PARTY.memberEmail,
@@ -415,6 +443,15 @@ function partyJoin() {
     const { event, payload } = JSON.parse(data)
 
     switch (event) {
+      case "partyJoined":
+        wss.broadcast({
+          event: `partyJoined`,
+        })
+        wss.broadcast({
+          event: `TEST`,
+        })
+        break
+
       case "partyGetMembers":
         wss.broadcast({ event: "partyGetMembers", payload: payload })
         break
@@ -427,10 +464,9 @@ function partyJoin() {
         break
 
       case "partyError":
-        console.log(`${new Date()} PARTY ERROR: ${payload}`)
         wss.broadcast({
           event: `partyError`,
-          payload: payload,
+          payload: `<i class="fa-solid fa-circle-exclamation"></i> ${payload}`,
         })
         _PARTYWSS.close()
         break
@@ -438,7 +474,12 @@ function partyJoin() {
   })
 
   _PARTYWSS.on("close", function () {
-    partyJoinTimer = setInterval(() => {
+    wss.broadcast({
+      event: `partyError`,
+      payload: `<i class="fa-solid fa-fan fa-spin fa-spin-reverse"></i> Reconnecting to party server...`,
+    })
+
+    partyJoinTimer = setTimeout(() => {
       partyJoin()
     }, 60000)
   })
@@ -466,10 +507,12 @@ renderFrame(0).then((b64Image) => {
     _PARTY.partyPassword &&
     _PARTY.userName
   ) {
+    wss.broadcast({
+      event: `partyError`,
+      payload: `<i class="fa-solid fa-fan fa-spin fa-spin-reverse"></i> Connecting to party server...`,
+    })
+
     partyJoin()
-    partyJoinTimer = setInterval(() => {
-      partyJoin()
-    }, 60000)
   }
 })
 

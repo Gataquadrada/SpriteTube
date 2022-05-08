@@ -1,6 +1,8 @@
 jQuery(($) => {
+  var stSocket
+
   function makeStSocket() {
-    const stSocket = new WebSocket(`ws://127.0.0.1:${_PORT}`)
+    stSocket = new WebSocket(`ws://127.0.0.1:${_PORT}`)
 
     stSocket.doSend = function (event = "", payload = "") {
       stSocket.send(
@@ -11,14 +13,14 @@ jQuery(($) => {
       )
     }
 
+    stSocket.onopen = function (err) {
+      // stSocket.doSend("partyGetStatus")
+    }
+
     stSocket.onclose = function () {
       setTimeout(() => {
         makeStSocket()
-      }, 3000)
-    }
-
-    stSocket.onopen = function (err) {
-      stSocket.doSend("partyGetStatus")
+      }, 1000)
     }
 
     stSocket.onerror = function (err) {
@@ -28,23 +30,19 @@ jQuery(($) => {
     stSocket.onmessage = function (data) {
       const { event, payload } = JSON.parse(data.data)
 
-      $("#party__alerts").addClass("d-none")
-      $("#party__container").addClass("d-none")
-
       switch (event) {
-        case "partyGetStatus":
-          if (200 == payload) {
-            stSocket.doSend("partyGetMembers", {
-              partyName: $("#party__name").val(),
-            })
-          }
+        case `partyConnected`:
+        case `partyJoined`:
+          $("#party__alerts").addClass("d-none")
           break
 
         case "partyGetMembers":
           $("#party__members").empty()
 
-          if (payload.length) {
+          if (0 < payload.length) {
             $("#party__container").removeClass("d-none")
+          } else {
+            $("#party__container").addClass("d-none")
           }
 
           $.each(payload, function (i, user) {
@@ -62,9 +60,7 @@ jQuery(($) => {
           $("#party__alerts")
             .empty()
             .removeClass("d-none")
-            .append(
-              `<div class="alert alert-danger"><i class="fa-solid fa-circle-exclamation"></i> ${payload}</div>`
-            )
+            .append(`<div class="alert alert-danger">${payload}</div>`)
           break
       }
     }
@@ -690,6 +686,61 @@ jQuery(($) => {
    */
 
   /*
+   * PARTY TAB
+   */
+  $(document).on("click", "#party__action_reload", function (e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    try {
+      stSocket.doSend("partyReboot")
+    } catch (e) {}
+  })
+
+  $(document).on("click", "#party__action_save", function (e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const button = $(this)
+
+    $.ajax({
+      type: "POST",
+      url: "/config.save",
+      data: {
+        memberEmail: $("#member__email").val(),
+        partyName: $("#party__name").val(),
+        partyPassword: $("#party__password").val(),
+        partyUsername: $("#party__nickname").val(),
+      },
+      dataType: "JSON",
+      complete: function () {},
+      beforeSend: function () {
+        button.prop("disabled", true)
+      },
+      success: function (data) {
+        button.prop("disabled", false)
+
+        if (data.ok) {
+          alert("Saved!")
+          try {
+            stSocket.doSend("partyReboot")
+          } catch (e) {}
+        } else {
+          alert("Error on save!")
+        }
+      },
+      error: function (err) {
+        button.prop("disabled", false)
+        alert("Error!")
+        console.log(err)
+      },
+    })
+  })
+  /*
+   * /PARTY TAB
+   */
+
+  /*
    * SETTINGS TAB
    */
   $(document).on("click", "#editor__action_download_img", function (e) {
@@ -824,10 +875,6 @@ jQuery(($) => {
       url: "/config.save",
       data: {
         port: $("#system__port").val(),
-        memberEmail: $("#member__email").val(),
-        partyName: $("#party__name").val(),
-        partyPassword: $("#party__password").val(),
-        partyUsername: $("#party__nickname").val(),
       },
       dataType: "JSON",
       complete: function () {},
@@ -858,6 +905,19 @@ jQuery(($) => {
   })
   /*
    * /SETTINGS TAB
+   */
+
+  /*
+   * INFO TAB
+   */
+  $(document).on("click", "#preview__action_reload", function (e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    $("#preview__iframe")[0].contentDocument.location.reload(true)
+  })
+  /*
+   * /INFO TAB
    */
 
   /*
