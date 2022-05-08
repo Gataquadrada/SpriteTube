@@ -4,15 +4,19 @@ A lightweight Sprite based VTube environment, that you can control with Stream D
 
 If you like the content, consider [buying me a ☕][url_coffee].
 
-## Requirements
+## Windows version
+
+If you don't want to fiddle with any of the manual parts, here is a [Windows version][url_releases] you can just download and use.
+
+## Command line version (NodeJS)
+
+#### Requirements
 
 - Basic [NodeJS](http://nodejs.org) knowledge.
 - Basic HTML, JS, CSS, jQuery knowledge.
 - [Stream Deck SpriteTube Plugin][url_streamdeck_plugin] or [Touch Portal SpriteTube Plugin][url_touchportal_plugin].
 
-## Instalation/Usage
-
-#### Command line (NodeJS)
+#### Instalation/Usage
 
 First, install the required Node dependencies in the project folder:  
 `npm i ws express express-es6-template-engine skia-canvas`
@@ -20,11 +24,7 @@ First, install the required Node dependencies in the project folder:
 Then, run the main script:  
 `node app.js`
 
-#### Windows version
-
-If you don't want to fiddle with any of the manual parts, here is a [Windows version][url_releases] you can just download and use.
-
-## Making it visible on OBS
+#### Making it visible on OBS
 
 Simply add the [http://127.0.0.1:3000/](http://127.0.0.1:3000/) address as OBS Browser source.  
 That's all.
