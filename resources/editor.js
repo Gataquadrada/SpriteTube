@@ -18,7 +18,6 @@ jQuery(($) => {
     }
 
     stSocket.onopen = function (err) {
-      console.log("Connected to SpriteTube server.")
       stSocket.doSend("partyGetStatus")
     }
 
@@ -47,12 +46,18 @@ jQuery(($) => {
           }
 
           $.each(payload, function (i, user) {
-            $("#party__members").append(`<div class="col">
-              <code><a href="/party-player/${
-                user.userName
-              }" target="_blank">${user.is_admin ? `<span class="badge badge-d20"></span>` : ""} ${user.userName}</a></code>
-            </div>`)
+            $("#party__members").append(
+              `<code><a href="/party-player/${user.userName}" target="_blank">${
+                user.is_admin
+                  ? `<span class="badge badge-d20" data-tooltip="Admin"></span>`
+                  : ""
+              } ${user.userName}</a></code>`
+            )
           })
+          break
+
+        case `partyError`:
+          console.log(payload)
           break
       }
     }

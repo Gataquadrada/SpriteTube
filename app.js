@@ -423,8 +423,11 @@ function partyJoin() {
         })
         break
 
-      case "error":
-        console.log(`PARTY ERROR: ${payload}`)
+      case "partyError":
+        wss.broadcast({
+          event: `partyError`,
+          payload: payload,
+        })
         break
     }
   })
@@ -526,7 +529,8 @@ change __dirname + `/
 for `./
 */
 app.post("/config.save", (req, res) => {
-  var reboot = (partyUpdate = false)
+  var reboot = false,
+    partyUpdate = false
 
   if (req.body.memberEmail && _PARTY.memberEmail !== req.body.memberEmail) {
     partyUpdate = true
