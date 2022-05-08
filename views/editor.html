@@ -8,6 +8,9 @@
       http-equiv="Cache-Control"
       content="no-cache, no-store, must-revalidate"
     />
+    <script>
+      const _PORT = ${port}
+    </script>
     <script src="resources/jquery-3.6.0.min.js"></script>
     <script src="resources/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
     <link
@@ -114,27 +117,92 @@
 
       <!-- SETTINGS -->
       <div data-tab="tabSettings" class="tab__content">
-        <!-- SOON -->
-        <div class="tab__panel" data-group="framedata">
-          <h6 class="tab__panel_title">Soon</h6>
+        <!-- PORT -->
+        <div class="tab__panel">
+          <h6 class="tab__panel_title">Port</h6>
           <div class="row">
             <div class="col">
-              <label
-                >Working on cloud features.<br />
-                Stay tunned!</label
-              >
-            </div>
-            <div class="col">
-              <label
-                >You can use the controls bellow to backup and restore your
-                spritesheet.</label
-              >
+              <div class="input">
+                <label><i class="fa-solid fa-plug fa-fw"></i></label>
+                <input id="system__port" value="${port}" />
+              </div>
             </div>
           </div>
         </div>
-        <!-- /SOON -->
+        <!-- /PORT -->
 
-        <div class="tab__actions d-none">
+        <!-- PARTY -->
+        <div class="tab__panel">
+          <h6 class="tab__panel_title">Party</h6>
+          <div class="row">
+            <div class="col">
+              <code
+                >You need to be a
+                <a
+                  href="https://www.buymeacoffee.com/mazeakin"
+                  target="_blank"
+                  class="bmc-color"
+                  ><i class="fa-solid fa-mug-hot fa-fw"></i> member</a
+                >
+                to be able to create a party (servers are expensive).</code
+              >
+            </div>
+            <div class="col">
+              <div class="input">
+                <label><i class="fa-solid fa-envelope fa-fw"></i></label>
+                <input
+                  id="member__email"
+                  value="${party.memberEmail}"
+                  placeholder="Coffee email"
+                  type="email"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <code
+                >You do NOT need a membership to join a party created by someone
+                else.</code
+              >
+            </div>
+            <div class="col">
+              <div class="input">
+                <label><i class="fa-solid fa-hat-wizard fa-fw"></i></label>
+                <input
+                  id="party__nickname"
+                  value="${party.userName}"
+                  placeholder="Nickname"
+                />
+              </div>
+            </div>
+            <div class="col col-6">
+              <div class="input">
+                <label><i class="fa-solid fa-dice-d20 fa-fw"></i></label>
+                <input
+                  id="party__name"
+                  value="${party.partyName}"
+                  placeholder="Party name"
+                />
+              </div>
+            </div>
+            <div class="col col-6">
+              <div class="input">
+                <label><i class="fa-solid fa-key fa-fw"></i></label>
+                <input
+                  id="party__password"
+                  value="${party.partyPassword}"
+                  placeholder="Party pass"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="party__container" class="tab__panel d-none">
+          <h6 class="tab__panel_title">Party members</h6>
+          <div id="party__members" class="row"></div>
+        </div>
+        <!-- /PARTY -->
+
+        <div class="tab__actions">
           <a
             id="editor__action_save_settings"
             href="#"

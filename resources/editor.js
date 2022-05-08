@@ -1,4 +1,65 @@
 jQuery(($) => {
+  function makeStSocket() {
+    const stSocket = new WebSocket(`ws://127.0.0.1:${_PORT}`)
+
+    stSocket.doSend = function (event = "", payload = "") {
+      stSocket.send(
+        JSON.stringify({
+          event: event,
+          payload: payload,
+        })
+      )
+    }
+
+    stSocket.onclose = function () {
+      setTimeout(() => {
+        makeStSocket()
+      }, 3000)
+    }
+
+    stSocket.onopen = function (err) {
+      console.log("Connected to SpriteTube server.")
+      stSocket.doSend("partyGetStatus")
+    }
+
+    stSocket.onerror = function (err) {
+      stSocket.close()
+    }
+
+    stSocket.onmessage = function (data) {
+      const { event, payload } = JSON.parse(data.data)
+
+      switch (event) {
+        case "partyGetStatus":
+          if (200 == payload) {
+            stSocket.doSend("partyGetMembers", {
+              partyName: $("#party__name").val(),
+            })
+          }
+          break
+
+        case "partyGetMembers":
+          $("#party__container").addClass("d-none")
+          $("#party__members").empty()
+
+          if (payload.length) {
+            $("#party__container").removeClass("d-none")
+          }
+
+          $.each(payload, function (i, user) {
+            $("#party__members").append(`<div class="col">
+              <code><a href="/party-player/${
+                user.userName
+              }" target="_blank">${user.is_admin ? `<span class="badge badge-d20"></span>` : ""} ${user.userName}</a></code>
+            </div>`)
+          })
+          break
+      }
+    }
+  }
+
+  makeStSocket()
+
   var _spritesheetFile = null
   var _zoomCurrent = 3
   const _zoomLevels = [0.15, 0.25, 0.5, 1, 1.5, 2, 2.15]
@@ -738,6 +799,50 @@ jQuery(($) => {
     } else {
       alert("Your browser doesn't support offline file manipulation...")
     }
+  })
+
+  $(document).on("click", "#editor__action_save_settings", function (e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const button = $(this)
+
+    $.ajax({
+      type: "POST",
+      url: "/config.save",
+      data: {
+        port: $("#system__port").val(),
+        memberEmail: $("#member__email").val(),
+        partyName: $("#party__name").val(),
+        partyPassword: $("#party__password").val(),
+        partyUsername: $("#party__nickname").val(),
+      },
+      dataType: "JSON",
+      complete: function () {},
+      beforeSend: function () {
+        button.prop("disabled", true)
+      },
+      success: function (data) {
+        button.prop("disabled", false)
+
+        if (data.ok) {
+          alert("Saved!")
+
+          if (parseInt($("#system__port").val()) !== parseInt(_PORT)) {
+            window.location.href = `http://127.0.0.1:${$(
+              "#system__port"
+            ).val()}/editor.html`
+          }
+        } else {
+          alert("Error on save!")
+        }
+      },
+      error: function (err) {
+        button.prop("disabled", false)
+        alert("Error!")
+        console.log(err)
+      },
+    })
   })
   /*
    * /SETTINGS TAB
