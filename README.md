@@ -8,18 +8,11 @@ If you like the content, consider [buying me a ☕][url_coffee].
 
 - Basic [NodeJS](http://nodejs.org) knowledge.
 - Basic HTML, JS, CSS, jQuery knowledge.
-- [Stream Deck SpriteTube Plugin][url_streamdeck_plugin] or [Stream Deck Web Requests Plugin][url_web_requests_plugin].
+- [Stream Deck SpriteTube Plugin][url_streamdeck_plugin] or [Touch Portal SpriteTube Plugin][url_touchportal_plugin].
 
 ## Instalation/Usage
 
-### Windows version
-
-> The Windows version, usually, is a couple days behind the command line version.  
-> As I have little experience with translating a NodeJS app to an executable.
-
-If you don't want to fiddle with any of the manual parts, here is a [Windows version][url_releases] you can just download and use.
-
-### Command line (NodeJS)
+#### Command line (NodeJS)
 
 First, install the required Node dependencies in the project folder:  
 `npm i ws express express-es6-template-engine skia-canvas`
@@ -27,12 +20,22 @@ First, install the required Node dependencies in the project folder:
 Then, run the main script:  
 `node app.js`
 
+#### Windows version
+
+If you don't want to fiddle with any of the manual parts, here is a [Windows version][url_releases] you can just download and use.
+
 ## Making it visible on OBS
 
 Simply add the [http://127.0.0.1:3000/](http://127.0.0.1:3000/) address as OBS Browser source.  
 That's all.
 
-## Using with Stream Deck ([SpriteTube Plugin][url_streamdeck_plugin])
+## Using with ([Stream Deck][url_streamdeck_plugin])
+
+#### Stream Deck Intallation
+
+Just double click the `.streamDeckPlugin` file and accept the installation.
+
+#### Stream Deck Usage
 
 Just pick an action and follow the instructions.  
 If you didn't change the default port, you should have little to no work with each action.
@@ -41,28 +44,28 @@ If you didn't change the default port, you should have little to no work with ea
 
 ![sd-spritetube-2.png](tutorial/sd-spritetube-2.png)
 
-## Using with Stream Deck (Web Requests Plugin)
+## Using with ([Touch Portal][url_touchportal_plugin])
 
-Set `URL` to `ws://localhost:3000/`  
-Send a `JSON` formatted `Message` like the following.
+#### Touch Portal Intallation
 
-```json
-{ "action": "setFrame", "payload": "random" }
-```
+Install the `.tpp` file from the menu:
+![tp-install.png](tutorial/tp-install.png)
 
-```json
-{
-  "action": "setFrameModifier",
-  "payload": { "mod": "flip", "action": "flip|unflip|toggle" }
-}
-```
+#### Touch Portal Usage
 
-![sd-action.png](tutorial/sd-action.png)
+Just pick an action and follow the instructions.  
+If you didn't change the default port (under `settings -> plugins -> SpriteTube`), you should have little to no work with each action.
 
-## Using with Touch Portal
+![tp-action-frame.png](tutorial/tp-action-frame.png)
 
-> Working on a TouchPortal plugin.  
-> It seems Touch Portal doesn't have any Websockets plugin. So you are kinda out of luck.
+![tp-action-name.png](tutorial/tp-action-name.png)
+
+#### Touch Portal events (and creating a preview)
+
+You can use the `When the plug-in state` (under `Values`) event to track the current frame.  
+You can also use the `Change the visuals by plug-in state` (under `Visuals`) action to actually show the current frame.
+
+![tp-event.png](tutorial/tp-event.png)
 
 ## Available commands
 
@@ -74,7 +77,7 @@ Send a `JSON` formatted `Message` like the following.
 - Use `show` to show the avatar.
 - Any invalid command or innexistent frame number will remove the sprite from screen.
 
-## Character editor.
+## Character editor
 
 By opening the [http://127.0.0.1:3000/editor.html](http://127.0.0.1:3000/editor.html) URL (after starting the server) or by opening the [APP][url_releases], you'll find a character editor.
 
@@ -82,28 +85,18 @@ By opening the [http://127.0.0.1:3000/editor.html](http://127.0.0.1:3000/editor.
 
 #### These are the currently available actions:
 
+- Party mode (see characters from friends).
 - Upload a new spritesheet.
-- Move the spritesheet (by dragging from outside the preview box).
-- Resize the preview box.
+- Move the spritesheet (drag and drop).
 - Snapshot a frame.
-- Edit a frame (hover frames for buttons).
-- Delete a frame (hover frames for buttons).
+- Snapshot an icon.
+- Edit a frame.
+- Delete a frame.
 - Reorganize frames (drag and drop).
 - Click sprites in the timeline to quickly navigate and preview.
 - Toggle the timeline.
 - Save (replaces your current `frames.json` file, but makes a backup once a day inside the `backups` folder).
 - Preview.
-
-## Mapping the character by hand
-
-_First, you are brave._
-
-- You'll need the `X` and `Y` coordinates, plus the `width` and `height` of each frame, in order to map it correctly (use CSS background-position as reference, top left is `X-0` and `Y-0`);
-- Then, proceed to fill the `frames` array inside the `assets/frames.json` file.
-
-## Replacing a spritesheet by hand
-
-Just replace the `assets/character.png` file.
 
 ## FAQ
 
@@ -128,6 +121,9 @@ A: Yes. But I'd appreciate if you shared your customization with everyone else. 
 Q: _I see a lot of unused code. Are you adding new stuff?_  
 A: Yes. I may send commits with placeholder code I am working on.
 
+Q: _Can I have a copy of the party server?_  
+A: Sure. Just ask me on [Twitter](https://twitter.com/Mazeakin).
+
 Q: _Can I message you if I have issues or suggestions?_  
 A: Sure. You can open an issue here, or message me on [Discord](https://discord.gg/eYfSNQT) or [Twitter](https://twitter.com/Mazeakin).
 
@@ -150,6 +146,7 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ✅ (1.1.1) Touch Portal plugin.
 - ✅ (1.1) Party mode (be able to see someone else's character and frames).
 - ✅ (0.3.0) Remove load from the player (make server send a base64 encoded image ready to use).
 - ✅ (0.3.0) Sincronize all players in general.
@@ -171,6 +168,7 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 ## Changelog
 
+- (1.1.1) Touch Portal integration.
 - (1.1) Party mode.
 - (1.0) New, more powerful, editor.
 - (1.0) `CTRL+Z` will try to place frames you deleted back into the list.
@@ -194,5 +192,5 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 [url_coffee]: https://www.buymeacoffee.com/mazeakin
 [url_streamdeck_plugin]: https://github.com/Mazeakin/SpriteTube/releases/
-[url_web_requests_plugin]: https://apps.elgato.com/plugins/gg.datagram.web-requests
+[url_touchportal_plugin]: https://github.com/Mazeakin/SpriteTube/releases/
 [url_releases]: https://github.com/Mazeakin/SpriteTube/releases/
