@@ -49,6 +49,7 @@ If you didn't change the default port, you should have little to no work with ea
 #### Touch Portal Intallation
 
 Install the `.tpp` file from the menu:
+
 ![tp-install.png](tutorial/tp-install.png)
 
 #### Touch Portal Usage
