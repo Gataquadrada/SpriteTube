@@ -29,7 +29,7 @@ Then, run the main script:
 Simply add the [http://127.0.0.1:3000/](http://127.0.0.1:3000/) address as OBS Browser source.  
 That's all.
 
-## Using with ([Stream Deck][url_streamdeck_plugin])
+## Using with [Stream Deck][url_streamdeck_plugin]
 
 #### Stream Deck Intallation
 
@@ -44,7 +44,7 @@ If you didn't change the default port, you should have little to no work with ea
 
 ![sd-spritetube-2.png](tutorial/sd-spritetube-2.png)
 
-## Using with ([Touch Portal][url_touchportal_plugin])
+## Using with [Touch Portal][url_touchportal_plugin]
 
 #### Touch Portal Intallation
 
