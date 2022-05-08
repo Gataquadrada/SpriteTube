@@ -1,4 +1,4 @@
-const _VERSION = "1.0.1"
+const _VERSION = "1.1.0"
 var _PORT = 3000
 
 var _FRAMES = {}
@@ -10,7 +10,7 @@ var _FRAME_PROPS = {
 }
 var _FRAME_OLD_PROPS = {}
 
-const _PARTYSERVER = "ws://192.168.1.65:3001"
+const _PARTYSERVER = "ws://caramel.gg:3001"
 var _PARTYWSS = null
 var _PARTY = {
   partyName: "",
@@ -424,18 +424,20 @@ function partyJoin() {
         break
 
       case "partyError":
+        console.log(`${new Date()} PARTY ERROR: ${payload}`)
         wss.broadcast({
           event: `partyError`,
           payload: payload,
         })
+        _PARTYWSS.close()
         break
     }
   })
 
   _PARTYWSS.on("close", function () {
-    setTimeout(() => {
+    partyJoinTimer = setInterval(() => {
       partyJoin()
-    }, 5000)
+    }, 10000)
   })
 
   _PARTYWSS.on("error", function () {
@@ -464,7 +466,7 @@ renderFrame(0).then((b64Image) => {
     partyJoin()
     partyJoinTimer = setInterval(() => {
       partyJoin()
-    }, 30000)
+    }, 10000)
   }
 })
 

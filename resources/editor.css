@@ -321,6 +321,20 @@ code a {
   color: #fff !important;
 }
 
+.alert {
+  background: #666;
+  border-radius: 3px;
+  color: #dfdfdf;
+  font-size: 13px;
+  padding: 12px;
+}
+.alert a {
+  color: #dfdfdf !important;
+}
+.alert.alert-danger {
+  background: #851829;
+}
+
 #party__members {
   flex-direction: column;
 }

@@ -28,6 +28,9 @@ jQuery(($) => {
     stSocket.onmessage = function (data) {
       const { event, payload } = JSON.parse(data.data)
 
+      $("#party__alerts").addClass("d-none")
+      $("#party__container").addClass("d-none")
+
       switch (event) {
         case "partyGetStatus":
           if (200 == payload) {
@@ -38,7 +41,6 @@ jQuery(($) => {
           break
 
         case "partyGetMembers":
-          $("#party__container").addClass("d-none")
           $("#party__members").empty()
 
           if (payload.length) {
@@ -57,7 +59,12 @@ jQuery(($) => {
           break
 
         case `partyError`:
-          console.log(payload)
+          $("#party__alerts")
+            .empty()
+            .removeClass("d-none")
+            .append(
+              `<div class="alert alert-danger"><i class="fa-solid fa-circle-exclamation"></i> ${payload}</div>`
+            )
           break
       }
     }
