@@ -440,7 +440,7 @@ function partyJoin() {
   _PARTYWSS.on("close", function () {
     partyJoinTimer = setInterval(() => {
       partyJoin()
-    }, 10000)
+    }, 60000)
   })
 
   _PARTYWSS.on("error", function () {
@@ -469,7 +469,7 @@ renderFrame(0).then((b64Image) => {
     partyJoin()
     partyJoinTimer = setInterval(() => {
       partyJoin()
-    }, 10000)
+    }, 60000)
   }
 })
 
