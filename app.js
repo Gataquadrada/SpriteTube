@@ -394,7 +394,10 @@ wss.broadcast = function broadcast(msg = {}) {
 var partyJoinTimer = null
 function partyJoin() {
   _PARTYWSS = new WebSocket(_PARTYSERVER)
+
   _PARTYWSS.on("open", function () {
+    console.log(`${new Date()} PARTY CONNECTED`)
+
     try {
       clearInterval(partyJoinTimer)
     } catch (e) {}
@@ -446,7 +449,7 @@ function partyJoin() {
 }
 
 function partySend(event = null, payload = {}) {
-  if (_PARTYWSS) {
+  if (_PARTYWSS && 1 == _PARTYWSS.readyState) {
     _PARTYWSS.send(
       JSON.stringify({
         event: event,
