@@ -171,6 +171,7 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 ## Changelog
 
+- (1.1) Party mode.
 - (1.0) New, more powerful, editor.
 - (1.0) `CTRL+Z` will try to place frames you deleted back into the list.
 - (1.0) Backup and restore are now part of the main editor (instead of the Windows app only).
