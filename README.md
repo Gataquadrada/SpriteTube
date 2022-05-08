@@ -17,7 +17,7 @@ If you like the content, consider [buying me a ☕][url_coffee].
 > The Windows version, usually, is a couple days behind the command line version.  
 > As I have little experience with translating a NodeJS app to an executable.
 
-If you don't want to fiddle with any of the manual parts, here is a [Windows version](https://github.com/Mazeakin/Maze-Static-VTube/releases) you can just download and use.
+If you don't want to fiddle with any of the manual parts, here is a [Windows version][url_releases] you can just download and use.
 
 ### Command line (NodeJS)
 
@@ -76,7 +76,7 @@ Send a `JSON` formatted `Message` like the following.
 
 ## Character editor.
 
-By opening the [http://127.0.0.1:3000/editor.html](http://127.0.0.1:3000/editor.html) URL (after starting the server) or by opening the [APP](https://github.com/Mazeakin/Maze-Static-VTube/releases), you'll find a character editor.
+By opening the [http://127.0.0.1:3000/editor.html](http://127.0.0.1:3000/editor.html) URL (after starting the server) or by opening the [APP][url_releases], you'll find a character editor.
 
 ![editor-1.png](tutorial/editor-1.png)
 
@@ -111,7 +111,7 @@ Q: _Why do you use WebSockets?_
 A: It's faster and simpler.
 
 Q: _Are you going to improve this project?_  
-A: ~I'll probably add minor modifications. But I won't do much. As it is part of my (bigger) [caramel.gg](http://caramel.gg) project.~ Yes.
+A: Yes.
 
 Q: _Your demo has a white background on my OBS!_  
 A: Yes. I'm lazy and didn't bother finding a demo sheet without background.
@@ -145,12 +145,12 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 ## Todo
 
-- ⏹️ (1.1) Party mode (be able to see someone else's avatar and frames).
-- ⏹️ (1.1) Zoom in and out with mouse scroll wheel.
+- ⏹️ Zoom in and out with mouse scroll wheel.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- ✅ (1.1) Party mode (be able to see someone else's character and frames).
 - ✅ (0.3.0) Remove load from the player (make server send a base64 encoded image ready to use).
 - ✅ (0.3.0) Sincronize all players in general.
 - ✅ (0.3.0) Make "random" syncronize with all players.
@@ -192,5 +192,6 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 - (0.3.0) Several performance improvements.
 
 [url_coffee]: https://www.buymeacoffee.com/mazeakin
-[url_streamdeck_plugin]: https://github.com/Mazeakin/SpriteTube/releases/tag/stream-deck
+[url_streamdeck_plugin]: https://github.com/Mazeakin/SpriteTube/releases/
 [url_web_requests_plugin]: https://apps.elgato.com/plugins/gg.datagram.web-requests
+[url_releases]: https://github.com/Mazeakin/SpriteTube/releases/
