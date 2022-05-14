@@ -142,11 +142,11 @@ A: Sure. You can open an issue here, or message me on [Discord](https://discord.
 
 ## Todo
 
-- ⏹️ Zoom in and out with mouse scroll wheel.
 - ⬜ Support for small movement when microphone is detected.
 - ⬜ Support for loop through predefined frames when microphone is detected.
 - ⬜ Support for second set of frames for mouth movement when microphone is detected.
 - ⬜ Support for idle set of frames.
+- 🟥 (Removed - Too Buggy) Zoom in and out with mouse scroll wheel.
 - ✅ (1.1.1) Touch Portal plugin.
 - ✅ (1.1) Party mode (be able to see someone else's character and frames).
 - ✅ (0.3.0) Remove load from the player (make server send a base64 encoded image ready to use).
